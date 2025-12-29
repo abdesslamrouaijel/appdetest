@@ -19,7 +19,13 @@ class _ProfileEmployeePageState extends State<ProfileEmployeePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Profil')),
-      body: Padding(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg3.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,8 +62,8 @@ class _ProfileEmployeePageState extends State<ProfileEmployeePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-        Text(value, style: const TextStyle(fontSize: 16)),
+        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
+        Text(value, style: const TextStyle(fontSize: 16, color: Colors.white)),
       ],
     );
   }
@@ -66,7 +72,7 @@ class _ProfileEmployeePageState extends State<ProfileEmployeePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
         Switch(value: value, onChanged: onChanged),
       ],
     );

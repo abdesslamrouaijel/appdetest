@@ -54,8 +54,15 @@ class _NewExpensePageState extends State<NewExpensePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Nouvelle dépense")),
-      body: Padding(
+      appBar: AppBar(title: const Text("Nouvelle dépense"),
+      backgroundColor: Colors.grey,),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg4.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
@@ -102,12 +109,17 @@ class _NewExpensePageState extends State<NewExpensePage> {
                   ? SizedBox(
                       height: 150,
                       child: Center(
-                        child: Text("Image ajoutée : ${_receiptImage!.name}"),
+                        child: Text(
+                          "Image ajoutée : ${_receiptImage!.name}",
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     )
                   : const SizedBox(
                       height: 150,
-                      child: Center(child: Text("Aucune image")),
+                      child: Center(
+                        child: Text("Aucune image", style: TextStyle(color: Colors.white)),
+                      ),
                     ),
               const SizedBox(height: 8),
 

@@ -19,14 +19,21 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg5.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Connexion',
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white),
             ),
             const SizedBox(height: 32),
             _field(emailController, 'Email', Icons.email),
@@ -68,6 +75,8 @@ class _LoginPageState extends State<LoginPage> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.8), // pour que le texte soit lisible sur bg
       ),
     );
   }
@@ -100,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
 
       final String userName = foundUser['name'] ?? 'Utilisateur';
-      final String userId = (foundUser['id'] ?? '').trim().toLowerCase();
+      final String userId = foundUser['id'];
       final String userEmail = foundUser['email'] ?? '';
 
       if (foundUser['role'] == 'employee') {
@@ -116,15 +125,14 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else if (foundUser['role'] == 'manager') {
         Navigator.pushReplacement(
-  context,
-  MaterialPageRoute(
-    builder: (_) => ManagerHomePage(
-      managerName: userName,
-      managerId: userId,
-    ),
-  ),
-);
-
+          context,
+          MaterialPageRoute(
+            builder: (_) => ManagerHomePage(
+              managerName: userName,
+              managerId: userId,
+            ),
+          ),
+        );
       }
     } catch (e) {
       if (!mounted) return;

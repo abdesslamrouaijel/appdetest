@@ -1,0 +1,18 @@
+[
+  {
+    "id": "n1",
+    "userId": "u1",
+    "managerId": "u2",
+    "expenseId": "e1",
+    "message": "Ahmed a déposé une nouvelle dépense.",
+    "status": "unread"
+  },
+  {
+    "id": "n2",
+    "userId": "u1",
+    "managerId": "u2",
+    "expenseId": "e2",
+    "message": "Ahmed a déposé une dépense pour le déjeuner.",
+    "status": "unread"
+  }
+]

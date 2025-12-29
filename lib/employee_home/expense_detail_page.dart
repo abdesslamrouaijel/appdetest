@@ -25,25 +25,99 @@ class ExpenseDetailPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Détails de la dépense')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Catégorie: ${expense['category']}', style: AppStyles.expenseCategory),
-            const SizedBox(height: 8),
-            Text('Montant: ${expense['amount']} MAD', style: AppStyles.expenseAmount),
-            const SizedBox(height: 8),
-            Text('Date: ${expense['date']}', style: AppStyles.expenseDate),
-            const SizedBox(height: 8),
-            Text('Description: ${expense['description'] ?? "-"}'),
-            const SizedBox(height: 8),
-            Text('Statut: $statusFR'),
-            const SizedBox(height: 8),
-            Text('Commentaire du manager: ${expense['managerComment'] ?? "-"}'),
-          ],
-        ),
+      appBar: AppBar(
+        title: const Text('Détails de la dépense'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Stack(
+        children: [
+          // 🔹 Background image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/bg1.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // 🔹 Overlay pour lisibilité
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.2),
+            ),
+          ),
+
+          // 🔹 Contenu
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _infoText(
+                  'Catégorie',
+                  expense['category'],
+                  AppStyles.expenseCategory,
+                ),
+                const SizedBox(height: 12),
+
+                _infoText(
+                  'Montant',
+                  '${expense['amount']} MAD',
+                  AppStyles.expenseAmount,
+                ),
+                const SizedBox(height: 12),
+
+                _infoText(
+                  'Date',
+                  expense['date'],
+                  AppStyles.expenseDate,
+                ),
+                const SizedBox(height: 12),
+
+                _infoText(
+                  'Description',
+                  expense['description'] ?? '-',
+                  AppStyles.expenseDate,
+                ),
+                const SizedBox(height: 12),
+
+                _infoText(
+                  'Statut',
+                  statusFR,
+                  AppStyles.expenseDate,
+                ),
+                const SizedBox(height: 12),
+
+                _infoText(
+                  'Commentaire du manager',
+                  expense['managerComment'] ?? '-',
+                  AppStyles.expenseDate,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 🔹 Widget réutilisable pour affichage propre
+  Widget _infoText(String label, String value, TextStyle style) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: '$label : ',
+            style: style.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: value,
+            style: style.copyWith(color: Colors.white),
+          ),
+        ],
       ),
     );
   }

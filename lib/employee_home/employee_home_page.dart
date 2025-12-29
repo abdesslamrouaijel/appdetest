@@ -62,7 +62,13 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
     return Scaffold(
       appBar: _buildAppBar(),
       floatingActionButton: _buildAddButton(),
-      body: Padding(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +79,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
             const SizedBox(height: 16),
             _buildStatusFilter(),
             const SizedBox(height: 16),
-            _buildExpenseList(),
+            _buildExpenseList(), // la liste des dépenses est conservée
           ],
         ),
       ),
@@ -82,7 +88,31 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text('Mes dépenses'),
+      backgroundColor: Colors.grey,
+      elevation: 0,
+      title:  RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'Expense',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange,
+              ),
+            ),
+            TextSpan(
+              text: 'Pro',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.lightBlue,
+              ),
+            ),
+          ],
+        ),
+      ),
+      centerTitle: true,
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications),
@@ -116,17 +146,22 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
   Widget _buildGreeting() {
     return Text(
       'Bonjour ${widget.userName} 👋',
-      style: AppStyles.greetingText,
+      style: AppStyles.greetingText.copyWith(color: Colors.white),
     );
   }
 
   Widget _buildSearchBar() {
     return TextField(
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         hintText: 'Rechercher une dépense...',
-        prefixIcon: const Icon(Icons.search),
+        hintStyle: const TextStyle(color: Colors.white70),
+        prefixIcon: const Icon(Icons.search, color: Colors.white),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.2),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
         ),
       ),
       onChanged: (value) {
@@ -169,8 +204,7 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
     }
 
     final filteredExpenses = expenses.where((expense) {
-      final matchesUser = expense['userId'].toString().trim().toLowerCase() ==
-          widget.userId.trim().toLowerCase();
+      final matchesUser = expense['userId'] == widget.userId;
 
       String statusFR;
       switch (expense['status']) {
@@ -199,7 +233,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
 
     if (filteredExpenses.isEmpty) {
       return const Expanded(
-        child: Center(child: Text('Aucune dépense trouvée')),
+        child: Center(
+            child: Text('Aucune dépense trouvée',
+                style: TextStyle(color: Colors.white))),
       );
     }
 

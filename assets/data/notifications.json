@@ -1,0 +1,32 @@
+[
+  {
+    "id": "notif_001",
+    "expenseId": "exp_001",
+    "userId": "u1",
+    "title": "Dépense en attente",
+    "message": "Votre dépense Transport est en attente de validation.",
+    "status": "pending",
+    "date": "2025-01-15",
+    "isRead": false
+  },
+  {
+    "id": "notif_002",
+    "expenseId": "exp_002",
+    "userId": "u1",
+    "title": "Dépense rejetée",
+    "message": "Votre dépense Repas a été rejetée. Motif : montant non justifié.",
+    "status": "rejected",
+    "date": "2025-01-16",
+    "isRead": false
+  },
+  {
+    "id": "notif_003",
+    "expenseId": "exp_003",
+    "userId": "u2",
+    "title": "Dépense acceptée",
+    "message": "Votre dépense Hôtel a été acceptée par le manager.",
+    "status": "approved",
+    "date": "2025-02-05",
+    "isRead": true
+  }
+]

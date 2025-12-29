@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/fake_expense_service.dart';
-import '../employee_home/notification_employee_page.dart';
 import '../employee_home/profile_employee_page.dart';
+import '../manager_home/notification_manager_page.dart';
+import 'expense_detail_manager_page.dart'; // <-- importer la page de détail
 
 class ManagerHomePage extends StatefulWidget {
   final String managerName;
@@ -83,7 +84,13 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Padding(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
@@ -99,7 +106,27 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
   // ================= APP BAR =================
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text('Gestion des dépenses'),
+      backgroundColor: Colors.grey,
+      title: Row(
+        children: const [
+          Text(
+            'Expense',
+            style: TextStyle(
+              color: Colors.orange,
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
+          ),
+          Text(
+            'Pro',
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
+          ),
+        ],
+      ),
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications),
@@ -107,7 +134,8 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => NotificationEmployeePage(userId: widget.managerId),
+                builder: (_) =>
+                    NotificationManagerPage(managerId: widget.managerId),
               ),
             );
           },
@@ -196,6 +224,20 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
               title: Text('${expense['category']} - ${expense['amount']} MAD'),
               subtitle: Text('Statut: $statusFR\nDate: ${expense['date']}'),
               isThreeLine: true,
+              // ================= CLIQUE SUR LA DEPENSE =================
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ExpenseDetailManagerPage(
+                      expense: expense,
+                      onStatusChange: (id, newStatus) {
+                        _updateExpenseStatus(id, newStatus);
+                      },
+                    ),
+                  ),
+                );
+              },
               trailing: expense['status'] == 'pending'
                   ? Row(
                       mainAxisSize: MainAxisSize.min,

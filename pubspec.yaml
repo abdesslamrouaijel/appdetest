@@ -30,6 +30,12 @@ flutter:
   assets:
     - assets/images/bg.jpg
     - assets/images/bg1.jpg
-    - assets/images/bg2.jpg  
+    - assets/images/bg2.jpg 
+    - assets/images/bg3.jpg
+    - assets/images/bg4.jpg 
+    - assets/images/bg5.jpg
     - assets/data/users.json
     - assets/data/expenses.json
+    - assets/data/notifications.json
+    - assets/data/notifications_manager.json
+
